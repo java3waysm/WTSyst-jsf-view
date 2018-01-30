@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<body>
+	<ui:composition>
+
+		<div id="topo"></div>
+
+		<p:menubar autoDisplay="false">
+			<p:submenu label="Cadastrar" icon="ui-icon-document">
+				<p:menuitem value="Cachorro" url="cachorro.jsf" />
+				<p:menuitem value="Autor" url="autor.jsf" />
+				<p:menuitem value="Gênero" url="genero.jsf" />
+				<p:menuitem value="Livro" url="livro.jsf" />
+				<p:menuitem value="Editora" url="editora.jsf" />
+				<p:menuitem value="Emprestimo" url="emprestimo.jsf"/>
+				<p:menuitem value="Cliente" url="cliente.jsf"/>
+				<p:menuitem value="Sair" url="/logout" />
+			</p:submenu>
+		</p:menubar>
+	</ui:composition>
+</body>
+</html>
+
+

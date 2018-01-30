@@ -1,0 +1,24 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
+	template="/template/main_login.xhtml">
+	<ui:define name="content">
+		<!-- IMPORT CSS -->
+		<h:outputStylesheet library="css" name="login.css" />
+		<!-- CONTENT -->
+		<div class="bg_full">
+			<div class="container">
+				<!-- LOGIN FORM -->
+				<h:form id="loginForm" prependId="false">
+					<h2 class="form-signin-heading">Acesso Negado</h2>
+				</h:form>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>
