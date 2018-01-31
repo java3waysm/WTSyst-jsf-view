@@ -36,7 +36,7 @@
 		</dependency>
 
 		<dependency>
-			<groupId>WTSyst-controle</groupId>
+			<groupId>WTSyst--controle</groupId>
 			<artifactId>WTSyst--controle</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
