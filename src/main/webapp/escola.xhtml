@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui" template="template/template.xhtml">
+
+	<ui:define name="content">
+
+		<h:form id="cad_escola">
+			<p:panel header="Cadastro de Escolas">
+				<p:panelGrid columns="2">
+					<p:outputLabel value="Nome" />
+					<p:inputText value="#{EscolaMB.bean.nome}" />
+
+					<p:outputLabel value="Cursos" />
+					<p:inputText value="#{EscolaMB.bean.cursos}" />
+                   
+                    <p:outputLabel value="Endereço" />
+					<p:inputText value="#{EscolaMB.bean.endereco}" />
+					
+					<p:outputLabel value="Cursos" />
+					<p:inputText value="#{EscolaMB.bean.mediaAprovacao}" />
+
+					<p:commandButton value="Cadastrar" action="#{EscolaMB.insert}" update="cad_escola" />
+				</p:panelGrid>
+				<p:dataTable var="a" value="#{EscolaMB.list}">
+					<p:column headerText="Nome">#{a.nome}</p:column>
+					<p:column headerText="Nome">#{a.cursos}</p:column>
+					<p:column headerText="Nome">#{a.endereco}</p:column>
+					<p:column headerText="Nome">#{a.mediaAprovacao}</p:column>
+				</p:dataTable>
+			</p:panel>
+		</h:form>
+	</ui:define>
+
+</ui:decorate>
