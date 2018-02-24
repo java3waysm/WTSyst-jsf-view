@@ -9,9 +9,7 @@ import javax.faces.bean.ViewScoped;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
-import br.com.wtsyst.bean.Aluno;
 import br.com.wtsyst.bean.Curso;
-import br.com.wtsyst.controle.AlunoBCI;
 import br.com.wtsyst.controle.CursoBCI;
 
 
@@ -20,7 +18,7 @@ import br.com.wtsyst.controle.CursoBCI;
 public class CursoMB extends SpringBeanAutowiringSupport{
 	
 	private Curso bean;
-	private List<Aluno> list;
+	private List<Curso> list;
 	@Autowired
 	private CursoBCI controle;
 	
@@ -30,7 +28,38 @@ public class CursoMB extends SpringBeanAutowiringSupport{
 		this.bean = new Curso();
 		this.list = controle.select();
 	}
+	
+	//------------------------------
 
+	public Curso getBean() {
+		return bean;
+	}
+
+	public void setBean(Curso bean) {
+		this.bean = bean;
+	}
+
+	public List<Curso> getList() {
+		return list;
+	}
+
+	public void setList(List<Curso> list) {
+		this.list = list;
+	}
+
+	public CursoBCI getControle() {
+		return controle;
+	}
+
+	public void setControle(CursoBCI controle) {
+		this.controle = controle;
+	}
+
+	public void insert() {
+		this.controle.insert(this.bean);
+		this.init();
+	}
+	
 	
 	
 }
