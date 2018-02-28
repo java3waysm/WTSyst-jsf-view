@@ -20,6 +20,7 @@ public class AlunoMB extends SpringBeanAutowiringSupport {
 
 	private Aluno bean;
 	private List<Aluno> list;
+	
 	@Autowired
 	private AlunoBCI controle;
 	
