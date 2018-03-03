@@ -19,6 +19,8 @@ public class CursoMB extends SpringBeanAutowiringSupport{
 	
 	private Curso bean;
 	private List<Curso> list;
+	private String labelEscola;
+	
 	@Autowired
 	private CursoBCI controle;
 	
@@ -27,12 +29,24 @@ public class CursoMB extends SpringBeanAutowiringSupport{
 		
 		this.bean = new Curso();
 		this.list = controle.select();
+		this.labelEscola = "Selecione :";
 	}
 	
 	//------------------------------
-
+	public void mostrarSelecaoEscola(){
+		this.labelEscola = this.bean.getEscola().getNome();
+	}
+	
 	public Curso getBean() {
 		return bean;
+	}
+
+	public String getLabelEscola() {
+		return labelEscola;
+	}
+
+	public void setLabelEscola(String labelEscola) {
+		this.labelEscola = labelEscola;
 	}
 
 	public void setBean(Curso bean) {
@@ -47,13 +61,6 @@ public class CursoMB extends SpringBeanAutowiringSupport{
 		this.list = list;
 	}
 
-	public CursoBCI getControle() {
-		return controle;
-	}
-
-	public void setControle(CursoBCI controle) {
-		this.controle = controle;
-	}
 
 	public void insert() {
 		this.controle.insert(this.bean);

@@ -11,29 +11,39 @@
 
 		<h:form id="cad_escola">
 			<p:panel header="Cadastro de Escolas">
+			<p:growl id="growl" showDetail="true" sticky="false" life="5000" /> 
 				<p:panelGrid columns="2">
+					<p:outputLabel value="ID" />
+					<p:inputText value="#{EscolaMB.bean.id}" />
+				
 					<p:outputLabel value="Nome" />
 					<p:inputText value="#{EscolaMB.bean.nome}" />
-
-					<p:outputLabel value="Cursos" />
-					<p:inputText value="#{EscolaMB.bean.cursos}" />
-                   
+					
                     <p:outputLabel value="Endereço" />
 					<p:inputText value="#{EscolaMB.bean.endereco}" />
 					
-					<p:outputLabel value="Cursos" />
+					<p:outputLabel value="Media de Aprovação" />
 					<p:inputText value="#{EscolaMB.bean.mediaAprovacao}" />
-
+															
 					<p:commandButton value="Cadastrar" action="#{EscolaMB.insert}" update="cad_escola" />
 				</p:panelGrid>
-				<p:dataTable var="a" value="#{EscolaMB.list}">
-					<p:column headerText="Nome">#{a.nome}</p:column>
-					<p:column headerText="Nome">#{a.cursos}</p:column>
-					<p:column headerText="Nome">#{a.endereco}</p:column>
-					<p:column headerText="Nome">#{a.mediaAprovacao}</p:column>
+				
+		</p:panel>
+				<p:dataTable var="e" value="#{EscolaMB.list}"  selectionMode="single" 
+									selection="#{EscolaMB.alteraEscola}" rowKey="#{e.id}">
+									
+						<p:ajax event="rowSelect" listener="#{EscolaMB.preparaUpdate}" update="cad_escola" />
+						<p:column headerText="ID">#{e.id}</p:column>
+						<p:column headerText="Nome">#{e.nome}</p:column>
+						<p:column headerText="Endereco">#{e.endereco}</p:column>
+						<p:column headerText="Media de Aprovação">#{e.mediaAprovacao}</p:column>
+					</p:dataTable>
+				
+ 				<p:dataTable var="c" value="#{EscolaMB.bean.cursos}"> 
+						<p:column headerText="id">#{c.id}</p:column>
+						<p:column headerText="nome">#{c.nome}</p:column>
+						<p:column headerText="Nota">#{c.nota}</p:column>
 				</p:dataTable>
-			</p:panel>
 		</h:form>
 	</ui:define>
-
 </ui:decorate>
