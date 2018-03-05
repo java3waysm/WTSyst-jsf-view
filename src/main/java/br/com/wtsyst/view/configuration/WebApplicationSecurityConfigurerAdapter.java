@@ -63,7 +63,6 @@ public class WebApplicationSecurityConfigurerAdapter extends WebSecurityConfigur
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-
 	
 		auth.inMemoryAuthentication()
 		.withUser("root")
@@ -72,18 +71,15 @@ public class WebApplicationSecurityConfigurerAdapter extends WebSecurityConfigur
 		.passwordEncoder(chave);
 		;
 		
-		
 		auth.userDetailsService(inMemoryUserDetailsManager())
 		.passwordEncoder(chave);
-		
 		
 	}
 
 	@Bean
 	public InMemoryUserDetailsManager inMemoryUserDetailsManager() {
 		
-		
-		users.put("thiago", chave.encode("123")+", ROOT");
+		users.put("Admin", chave.encode("123")+", ROOT");
 
 		InMemoryUserDetailsManager auth = new InMemoryUserDetailsManager(users);
 		return auth;
