@@ -53,7 +53,7 @@ public class WebApplicationSecurityConfigurerAdapter extends WebSecurityConfigur
 		// para acessar a página de aluno.jsf tenho q ter o perfil de ADMIN ou ROOT
 		http.authorizeRequests()
 		.antMatchers("/aluno.jsf")
-		.hasAnyAuthority("ROOT", "ADMIN");
+		.hasAnyRole("ADMINISTRADOR");
 		
 		// para qualquer outra página o usuário deve estar autenticado
 		http.authorizeRequests().anyRequest().authenticated();
@@ -67,10 +67,30 @@ public class WebApplicationSecurityConfigurerAdapter extends WebSecurityConfigur
 		auth.inMemoryAuthentication()
 		.withUser("root")
 		.password(chave.encode("root"))
-		.authorities("ADMIN").and()
+		.roles("COORDENADOR", "ADMINISTRADOR")
+		.and()
 		.passwordEncoder(chave);
 		;
 		
+		auth.inMemoryAuthentication()
+		.withUser("usuario")
+		.password(chave.encode("usuario"))
+		.and()
+		.passwordEncoder(chave);
+		;
+		
+		
+		
+		auth.inMemoryAuthentication()
+		.withUser("maria")
+		.password(chave.encode("maria"))
+		.roles("PROFESSOR", "ADMINISTRADOR")
+		.and()
+		.passwordEncoder(chave);
+		;
+		
+		
+	
 		auth.userDetailsService(inMemoryUserDetailsManager())
 		.passwordEncoder(chave);
 		
@@ -79,7 +99,8 @@ public class WebApplicationSecurityConfigurerAdapter extends WebSecurityConfigur
 	@Bean
 	public InMemoryUserDetailsManager inMemoryUserDetailsManager() {
 		
-		users.put("Admin", chave.encode("123")+", ROOT");
+		users.put("thiago", chave.encode("thiago")+", ROOT");
+		
 
 		InMemoryUserDetailsManager auth = new InMemoryUserDetailsManager(users);
 		return auth;

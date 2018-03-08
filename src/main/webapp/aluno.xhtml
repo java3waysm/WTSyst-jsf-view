@@ -5,11 +5,13 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:p="http://primefaces.org/ui" template="template/template.xhtml">
+	xmlns:p="http://primefaces.org/ui" template="template/template.xhtml"
+	xmlns:sec="http://www.springframework.org/security/tags">
 
 	<ui:define name="content">
-
+		<!-- https://docs.spring.io/spring-security/site/docs/5.0.0.RELEASE/reference/htmlsingle/ -->
 		<h:form id="cad_aluno">
+
 			<p:panel header="Cadastro de Alunos">
 				<p:panelGrid columns="2">
 					<p:outputLabel value="Nome" />
@@ -19,12 +21,16 @@
 					<p:inputText value="#{AlunoMB.bean.matricula}" />
 
 
-					<p:commandButton value="Cadastrar" action="#{AlunoMB.insert}" update="cad_aluno" />
+					<p:commandButton value="Cadastrar" action="#{AlunoMB.insert}"
+						update="cad_aluno" />
 				</p:panelGrid>
-				<p:dataTable var="a" value="#{AlunoMB.list}">
-					<p:column headerText="Nome">#{a.nome}</p:column>
-					<p:column headerText="Nome">#{a.matricula}</p:column>
-				</p:dataTable>
+
+			<sec:authorize access="hasRole('COORDENADOR')">
+					<p:dataTable var="a" value="#{AlunoMB.list}">
+						<p:column headerText="Nome">#{a.nome}</p:column>
+						<p:column headerText="Nome">#{a.matricula}</p:column>
+					</p:dataTable>
+				</sec:authorize>
 			</p:panel>
 		</h:form>
 	</ui:define>
