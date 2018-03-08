@@ -73,8 +73,9 @@ public class WebApplicationSecurityConfigurerAdapter extends WebSecurityConfigur
 		;
 		
 		auth.inMemoryAuthentication()
-		.withUser("usuario")
-		.password(chave.encode("usuario"))
+		.withUser("fulano")
+		.password(chave.encode("fulano"))
+		.roles("AJUDANTE")
 		.and()
 		.passwordEncoder(chave);
 		;

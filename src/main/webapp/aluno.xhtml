@@ -13,19 +13,22 @@
 		<h:form id="cad_aluno">
 
 			<p:panel header="Cadastro de Alunos">
-				<p:panelGrid columns="2">
-					<p:outputLabel value="Nome" />
-					<p:inputText value="#{AlunoMB.bean.nome}" />
+				<sec:authorize access="hasRole('ADMINISTRADOR')">
 
-					<p:outputLabel value="Matricula" />
-					<p:inputText value="#{AlunoMB.bean.matricula}" />
+					<p:panelGrid columns="2">
+						<p:outputLabel value="Nome" />
+						<p:inputText value="#{AlunoMB.bean.nome}" />
+
+						<p:outputLabel value="Matricula" />
+						<p:inputText value="#{AlunoMB.bean.matricula}" />
 
 
-					<p:commandButton value="Cadastrar" action="#{AlunoMB.insert}"
-						update="cad_aluno" />
-				</p:panelGrid>
+						<p:commandButton value="Cadastrar" action="#{AlunoMB.insert}"
+							update="cad_aluno" />
+					</p:panelGrid>
+				</sec:authorize>
 
-			<sec:authorize access="hasRole('COORDENADOR')">
+				<sec:authorize access="hasRole('COORDENADOR')">
 					<p:dataTable var="a" value="#{AlunoMB.list}">
 						<p:column headerText="Nome">#{a.nome}</p:column>
 						<p:column headerText="Nome">#{a.matricula}</p:column>
