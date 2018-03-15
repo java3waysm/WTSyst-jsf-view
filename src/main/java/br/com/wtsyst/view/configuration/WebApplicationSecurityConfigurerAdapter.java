@@ -16,48 +16,36 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 @EnableWebSecurity(debug = false)
 public class WebApplicationSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
 
-	
-
 	private final Properties users = new Properties();
-
 	
 	private final PasswordEncoder chave = new BCryptPasswordEncoder();
 
-	/* Configuração do spring security */
+	/* Configuracao do spring security */
 	// https://docs.spring.io/spring-security/site/docs/current/reference/html/jc.html
-
 	// https://docs.spring.io/spring-security/site/docs/current/reference/htmlsingle/
+	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 
-		// definindo página delogin
 		http.formLogin().loginPage("/login.jsf");
 		http.formLogin().loginProcessingUrl("/login.jsf");
-		// definindo url de acesso bem sucedido
 		http.formLogin().defaultSuccessUrl("/index.jsf");
-		// falha ao logar
 		http.formLogin().failureUrl("/login.jsf?source=loginError");
-		// liberando acesso total a página de login
 		http.formLogin().permitAll();
 		
-		// liberando acesso a pasta resources
-		http.authorizeRequests()
-		.antMatchers("/resources/**", "/javax.faces.resource/**")
-		.permitAll();
-		// liberando acesso a página de logout
-		http.logout()
-		.logoutUrl("/logout")
-		.logoutSuccessUrl("/login.jsf?source=logout")
-		.permitAll();
+		http.authorizeRequests().antMatchers("/resources/**", "/javax.faces.resource/**").permitAll();
+		http.logout().logoutUrl("/logout").logoutSuccessUrl("/login.jsf?source=logout").permitAll();
 		
-		// para acessar a página de aluno.jsf tenho q ter o perfil de ADMIN ou ROOT
-		http.authorizeRequests()
-		.antMatchers("/aluno.jsf")
-		.hasAnyRole("ADMINISTRADOR");
+		// Para acessar a pagina alunos, o usuario precisa ter perfil de administrador:
+		http.authorizeRequests().antMatchers("/aluno.jsf").hasAnyRole("ADMINISTRADOR");
 		
-		// para qualquer outra página o usuário deve estar autenticado
+		// Exercicio de sala - Para acessar a pagina professor, o usuario precisa ter perfil administrador/professor/chefe:
+		http.authorizeRequests().antMatchers("/professor.jsf").hasAnyRole("ADMINISTRADOR", "PROFESSOR", "CHEFE");
+
+		// Para qualquer outra pagina o usuario deve estar apenas autenticado
 		http.authorizeRequests().anyRequest().authenticated();
 		
+		// Um tipo de autenticacao com token
 		http.csrf().disable();
 	}
 
@@ -68,19 +56,13 @@ public class WebApplicationSecurityConfigurerAdapter extends WebSecurityConfigur
 		.withUser("root")
 		.password(chave.encode("root"))
 		.roles("COORDENADOR", "ADMINISTRADOR")
-		.and()
-		.passwordEncoder(chave);
-		;
+		.and().passwordEncoder(chave);
 		
 		auth.inMemoryAuthentication()
 		.withUser("fulano")
 		.password(chave.encode("fulano"))
-		.roles("AJUDANTE")
-		.and()
+		.roles("AJUDANTE").and()
 		.passwordEncoder(chave);
-		;
-		
-		
 		
 		auth.inMemoryAuthentication()
 		.withUser("maria")
@@ -88,24 +70,41 @@ public class WebApplicationSecurityConfigurerAdapter extends WebSecurityConfigur
 		.roles("PROFESSOR", "ADMINISTRADOR")
 		.and()
 		.passwordEncoder(chave);
-		;
 		
 		
-	
-		auth.userDetailsService(inMemoryUserDetailsManager())
+		/*Exercicio em sala de aula - 10/03/2018. (Clarismilton)
+		 * 
+		 * Criar 03 usu�rios diretamente no c�digo
+		 * 
+		 * Um com acesso a tela de professor (Criei o usu�rio "Joao como Auxiliar"
+		 * 
+		 * Outro com acesso total na tela de processor (Criei o usuario "Jose como Professor"
+		 * 
+		 * O terceiro com acesso somente a lista de professores da tela de processores (Criei o "Joana como Chefe"
+		 */ 
+		
+		
+		auth.inMemoryAuthentication()
+		.withUser("joao")
+		.password(chave.encode("joao"))
+		.roles("AUXILIAR")
+		.and()
+		.passwordEncoder(chave);
+		
+		auth.inMemoryAuthentication()
+		.withUser("jose")
+		.password(chave.encode("jose"))
+		.roles("PROFESSOR")
+		.and()
+		.passwordEncoder(chave);
+		
+		auth.inMemoryAuthentication()
+		.withUser("joana")
+		.password(chave.encode("joana"))
+		.roles("CHEFE")
+		.and()
 		.passwordEncoder(chave);
 		
 	}
-
-	@Bean
-	public InMemoryUserDetailsManager inMemoryUserDetailsManager() {
-		
-		users.put("thiago", chave.encode("thiago")+", ROOT");
-		
-
-		InMemoryUserDetailsManager auth = new InMemoryUserDetailsManager(users);
-		return auth;
-	}
-
 	
 }
