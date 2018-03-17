@@ -37,6 +37,10 @@
 				</sec:authorize>
 			</p:panel>
 		</h:form>
+		
+		<h:form id="relatorio">
+			<p:commandButton ajax="false" action="#{RelatorioExemplo.gerarLista}" value="Gerar PDF" />
+		</h:form>
 	</ui:define>
 
 </ui:decorate>
