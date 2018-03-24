@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui" template="template/template.xhtml"
+	xmlns:sec="http://www.springframework.org/security/tags">
+
+	<ui:define name="content">
+		<h:form id="cad_carro">
+			<h:panelGrid columns="2">
+
+				<p:commandButton action="#{CarroMB.povoarTabela}"
+					value="Povoar Tabela" update="cad_carro" />
+
+			</h:panelGrid>
+
+			<p:dataTable var="c" value="#{CarroMB.list}">
+			<p:column headerText="Dono">#{c.pessoa.nome}</p:column>
+				<p:column headerText="Nome">#{c.nome}</p:column>
+				<p:column headerText="Cor">#{c.cor}</p:column>
+				<p:column headerText="Ano">
+					<h:outputText value="#{c.ano.time}">
+						<f:convertDateTime pattern="yyyy" />
+					</h:outputText>
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+
+</ui:decorate>

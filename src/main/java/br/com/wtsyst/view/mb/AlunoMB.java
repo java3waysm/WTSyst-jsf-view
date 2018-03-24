@@ -26,7 +26,6 @@ public class AlunoMB extends SpringBeanAutowiringSupport {
 	
 	@PostConstruct
 	public void init() {
-		
 		this.bean = new Aluno();
 		this.list = controle.select();
 	}
